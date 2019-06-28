@@ -1,3 +1,5 @@
+#!/bin/sh
+
 yum -q -y update
 
 # install build tools
