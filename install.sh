@@ -1,3 +1,12 @@
+#!/bin/bash
+
+if [ $UID -ne 0 ]
+then
+    sudo /bin/bash $0 $* && exit $?
+    echo "please run with sudo"
+    exit 1
+fi
+
 # clean up any old installation
 rm -rf /usr/local/ncbi /etc/ncbi
 
