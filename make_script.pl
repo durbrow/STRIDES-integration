@@ -40,8 +40,8 @@ END
 }
 
 do_repo 'ncbi-vdb', qw{
-    VDB-3817
 };
+#    VDB-3817 was merged
 #    VDB-3767
 #    VDB-3768
 
