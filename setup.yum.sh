@@ -3,7 +3,7 @@
 yum -q -y update
 
 # install build tools
-yum -q -y install gcc g++ gcc-c++ make git openssl-devel
+yum -q -y install gcc g++ gcc-c++ make git bison flex openssl-devel
 
 # install perl and dependencies
 yum -q -y install perl perl-core perl-CPAN perl-Env
