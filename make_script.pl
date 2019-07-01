@@ -16,8 +16,8 @@ git checkout engineering
 git pull --all
 
 echo "building engineering branch ..."
-./configure >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
-make -sj1 clean default >/dev/null 2>&1 || { echo "make failed"; exit 1; }
+\${CONFIGURE} >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
+make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "creating integration branch ..."
 git checkout -b integration
@@ -39,16 +39,25 @@ cd ..
 END
 }
 
+print <<"END";
+CONFIGURE="./configure --without-debug"
+
+git clone --branch engineering https://github.com/ncbi/ngs.git    
+git clone https://github.com/ncbi/ncbi-vdb.git
+git clone https://github.com/ncbi/sra-tools.git
+
+END
 do_repo 'ncbi-vdb', qw{
-    VDB-3817
+    VDB-3823
 };
+#    VDB-3817
 #    VDB-3767
 #    VDB-3768
 
 print <<"END";
 echo "building ngs-sdk library ..."
 cd ngs
-./configure >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
+\${CONFIGURE} >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
 make -sj1 -C ngs-sdk >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 cd ..
 
@@ -58,4 +67,5 @@ END
 do_repo 'sra-tools', qw{
     VDB-3739
     VDB-3786
+    VDB-3823
 };
