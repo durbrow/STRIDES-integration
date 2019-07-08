@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # get fresh repo's
 git clone --branch engineering https://github.com/ncbi/ngs.git    
@@ -11,7 +12,7 @@ git pull --all
 
 echo "building engineering branch ..."
 ./configure >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
-make -sj1 clean default >/dev/null 2>&1 || { echo "make failed"; exit 1; }
+make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "creating integration branch ..."
 git checkout -b integration
@@ -31,18 +32,20 @@ cd sra-tools
 git fetch --all
 git checkout VDB-3739
 git checkout VDB-3786
+git checkout VDB-3794
 git checkout engineering
 git pull --all
 
 echo "building engineering branch ..."
 ./configure >/dev/null 2>&1 || { echo "configure script failed"; exit 1; }
-make -sj1 clean default >/dev/null 2>&1 || { echo "make failed"; exit 1; }
+make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "creating integration branch ..."
 git checkout -b integration
 
-echo "merging and building VDB-3739 ..."
-git merge --no-edit VDB-3739 || { echo "merge failed"; exit 1; }
+echo "merging and building VDB-3739+VDB-3794 ..."
+git merge --no-edit VDB-3794 || { echo "merge failed"; exit 1; }
+git rebase VDB-3739 || { echo "rebase failed"; exit 1; }
 make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "merging and building VDB-3786 ..."
