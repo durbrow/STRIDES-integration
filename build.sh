@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf ngs ncbi-vdb sra-tools ncbi-outdir
+
 # get fresh repo's
 git clone --branch engineering https://github.com/ncbi/ngs.git    
 git clone https://github.com/ncbi/ncbi-vdb.git
