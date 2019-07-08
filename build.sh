@@ -43,13 +43,16 @@ make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 echo "creating integration branch ..."
 git checkout -b integration
 
-echo "merging and building VDB-3739+VDB-3794 ..."
-git merge --no-edit VDB-3794 || { echo "merge failed"; exit 1; }
-git rebase VDB-3739 || { echo "rebase failed"; exit 1; }
+echo "merging and building VDB-3739 ..."
+git merge --no-edit VDB-3739 || { echo "merge failed"; exit 1; }
 make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "merging and building VDB-3786 ..."
 git merge --no-edit VDB-3786 || { echo "merge failed"; exit 1; }
+make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
+
+echo "merging and building VDB-3794 ..."
+git merge --no-edit VDB-3794 || { echo "merge failed"; exit 1; }
 make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "built integration branch in sra-tools"
