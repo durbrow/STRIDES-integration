@@ -34,7 +34,6 @@ cd sra-tools
 git fetch --all
 git checkout VDB-3739
 git checkout VDB-3786
-git checkout VDB-3794
 git checkout engineering
 git pull --all
 
@@ -51,10 +50,6 @@ make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "merging and building VDB-3786 ..."
 git merge --no-edit VDB-3786 || { echo "merge failed"; exit 1; }
-make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
-
-echo "merging and building VDB-3794 ..."
-git merge --no-edit VDB-3794 || { echo "merge failed"; exit 1; }
 make -sj1 >/dev/null 2>&1 || { echo "make failed"; exit 1; }
 
 echo "built integration branch in sra-tools"
